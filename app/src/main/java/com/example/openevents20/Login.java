@@ -9,6 +9,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class Login extends AppCompatActivity {
 
 
@@ -31,6 +37,25 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this , "Please put a password!",
                             Toast.LENGTH_SHORT).show();
                 } else {
+                    try {
+                        //https://www.baeldung.com/httpurlconnection-post
+                        URL url = new URL("http://puigmal.salle.url.edu/api/v2/users/login");
+                        HttpURLConnection con = (HttpURLConnection)url.openConnection();
+                        con.setRequestMethod("POST");
+                        con.setRequestProperty("Content-Type", "application/json; utf-8");
+                        con.setRequestProperty("Accept", "application/json");
+                        con.setDoOutput(true);
+                        String jsonInputString = "{ 'name': '"+email.getText().toString()+"','password': '"+password.getText().toString()+"'}";
+                        try(OutputStream os = con.getOutputStream()) {
+                            byte[] input = jsonInputString.getBytes("utf-8");
+                            os.write(input, 0, input.length);
+                        }
+                        } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
 
                 }
             }
