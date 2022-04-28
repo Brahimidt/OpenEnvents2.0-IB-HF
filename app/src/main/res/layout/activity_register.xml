@@ -77,14 +77,14 @@
       android:id="@+id/textView10"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="Password"
+      android:text="Confirm Password"
       android:textColor="@color/black"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.246"
+      app:layout_constraintHorizontal_bias="0.294"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="0.634" />
+      app:layout_constraintVertical_bias="0.633" />
 
   <TextView
       android:id="@+id/textView11"
@@ -94,13 +94,13 @@
       android:textColor="@color/black"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.246"
+      app:layout_constraintHorizontal_bias="0.269"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_bias="0.751" />
 
   <Button
-      android:id="@+id/button"
+      android:id="@+id/btnCreate"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="CREATE ACCOUNT"
@@ -114,7 +114,7 @@
       app:layout_constraintVertical_bias="0.941" />
 
   <EditText
-      android:id="@+id/editTextTextPersonName"
+      android:id="@+id/editEmail"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:ems="10"
@@ -128,7 +128,7 @@
       app:layout_constraintVertical_bias="0.195" />
 
   <EditText
-      android:id="@+id/editTextTextPersonName3"
+      android:id="@+id/editFirstName"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:ems="10"
@@ -142,7 +142,7 @@
       app:layout_constraintVertical_bias="0.32" />
 
   <EditText
-      android:id="@+id/editTextTextPersonName4"
+      android:id="@+id/editLastName"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:ems="10"
@@ -156,12 +156,12 @@
       app:layout_constraintVertical_bias="0.453" />
 
   <EditText
-      android:id="@+id/editTextTextPersonName5"
+      android:id="@+id/editPassword"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:ems="10"
       android:inputType="textPersonName"
-      android:hint="Your password"
+      android:hint="Password"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.432"
@@ -170,12 +170,12 @@
       app:layout_constraintVertical_bias="0.577" />
 
   <EditText
-      android:id="@+id/editTextTextPersonName6"
+      android:id="@+id/editConfirmPassword"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:ems="10"
       android:inputType="textPersonName"
-      android:hint="Your password"
+      android:hint="Password confirm"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.432"
@@ -184,7 +184,7 @@
       app:layout_constraintVertical_bias="0.698" />
 
   <EditText
-      android:id="@+id/editTextTextPersonName7"
+      android:id="@+id/editImg"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:ems="10"
