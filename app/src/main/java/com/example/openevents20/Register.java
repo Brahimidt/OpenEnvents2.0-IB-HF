@@ -7,14 +7,36 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.goebl.david.Webb;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Register extends AppCompatActivity {
+
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("http://puigmal.salle.url.edu/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
+    retrofitInterface service = retrofit.create(retrofitInterface.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,37 +50,34 @@ public class Register extends AppCompatActivity {
         EditText repswd = (EditText) findViewById(R.id.editConfirmPassword);
         EditText img = (EditText) findViewById(R.id.editImg);
 
+
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String firstnamestring = firstname.getText().toString();
+                String lastnamestring = lastname.getText().toString();
+                String emailstring = email.getText().toString();
+                String passwordstring = pswd.getText().toString();
+                String imagestring = img.getText().toString();
+                RegisterRequest obj = new RegisterRequest(firstnamestring,lastnamestring,emailstring,passwordstring,imagestring);
+
                 if (email.getText().toString().equals("") && pswd.getText().toString().equals("") && repswd.getText().toString().equals("") && firstname.getText().toString().equals("") && lastname.getText().toString().equals("")) {
                     Toast.makeText(Register.this, "Fill all the information", Toast.LENGTH_LONG).show();
                 } else if (pswd.getText().toString().equals(repswd.getText().toString())) {
-                    try {
-                        URL url = new URL("http://puigmal.salle.url.edu/api/v2/users/register");
-                        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                        con.setRequestMethod("POST");
-                        con.setRequestProperty("Content-Type", "application/json; uft-8");
-                        con.setRequestProperty("Accept", "application/json");
-                        con.setDoOutput(true);
-                        String jsonInputString = "{ 'name': '" + email.getText().toString() +
-                                "','last_name': '" + lastname.getText().toString() +
-                                "','email': '" + email.getText().toString() +
-                                "','password': '" + pswd.getText().toString() +
-                                "','image': '" + img.getText().toString() + "'}";
-                        try (OutputStream os = con.getOutputStream()) {
-                            byte[] input = jsonInputString.getBytes("utf-8");
-                            os.write(input, 0, input.length);
+
+                    service.Register(obj).enqueue(new Callback<RegisterRequest>() {
+
+                        @Override
+                        public void onResponse(Call<RegisterRequest> call, Response<RegisterRequest> response) {
+                            String reponse = response.body().toString();
                         }
-                    } catch (ProtocolException e) {
-                        e.printStackTrace();
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                        @Override
+                        public void onFailure(Call<RegisterRequest> call, Throwable t) {
+                        }
+                    });
                 }else{
-                    Toast.makeText(Register.this, "Password is not matching", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, "Password are not matching", Toast.LENGTH_SHORT).show();
                 }
             }
         });
