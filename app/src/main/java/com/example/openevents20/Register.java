@@ -1,6 +1,8 @@
 package com.example.openevents20;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -70,7 +72,11 @@ public class Register extends AppCompatActivity {
 
                         @Override
                         public void onResponse(Call<RegisterRequest> call, Response<RegisterRequest> response) {
-                            String reponse = response.body().toString();
+                            Toast.makeText(Register.this, "User created", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Register.this, Login.class);// New activity
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
                         }
                         @Override
                         public void onFailure(Call<RegisterRequest> call, Throwable t) {
