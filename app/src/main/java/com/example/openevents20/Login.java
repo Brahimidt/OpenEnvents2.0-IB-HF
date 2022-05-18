@@ -68,7 +68,12 @@ public class Login extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<Token> call, Response<Token> response) {
                             if (response.isSuccessful()){
-                                Toast.makeText(Login.this, response.body().accessToken, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(Login.this, response.body().accessToken, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login.this, "Connection Success", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(Login.this, MainActivity.class);// New activity
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                finish();
                             }
                             else{
                                 Toast.makeText(Login.this, "Error", Toast.LENGTH_SHORT).show();
