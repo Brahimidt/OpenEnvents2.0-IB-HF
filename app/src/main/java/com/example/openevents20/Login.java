@@ -40,7 +40,14 @@ public class Login extends AppCompatActivity {
         EditText email   = (EditText)findViewById(R.id.email);
         TextView signup = (TextView)findViewById(R.id.SignUp);
         EditText password   = (EditText)findViewById(R.id.password);
-
+        SharedPreferences sharedPreferences = getSharedPreferences("token",MODE_PRIVATE);
+        String s1 = sharedPreferences.getString("token", "");
+        if (s1 != null){
+            Intent intent = new Intent(Login.this, MainActivity.class);// New activity
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        }
         signup.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -70,6 +77,12 @@ public class Login extends AppCompatActivity {
                             if (response.isSuccessful()){
                                 //Toast.makeText(Login.this, response.body().accessToken, Toast.LENGTH_SHORT).show();
                                 Toast.makeText(Login.this, "Connection Success", Toast.LENGTH_SHORT).show();
+                                SharedPreferences sharedPreferences = getSharedPreferences("token",MODE_PRIVATE);
+                                SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                                myEdit.clear();
+                                myEdit.commit();
+                                myEdit.putString("token", response.body().accessToken);
+                                myEdit.commit();
                                 Intent intent = new Intent(Login.this, MainActivity.class);// New activity
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
