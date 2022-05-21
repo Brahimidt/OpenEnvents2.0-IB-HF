@@ -42,7 +42,8 @@ public class Login extends AppCompatActivity {
         EditText password   = (EditText)findViewById(R.id.password);
         SharedPreferences sharedPreferences = getSharedPreferences("token",MODE_PRIVATE);
         String s1 = sharedPreferences.getString("token", "");
-        if (s1 != null){
+
+        if (s1 != ""){
             Intent intent = new Intent(Login.this, MainActivity.class);// New activity
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
