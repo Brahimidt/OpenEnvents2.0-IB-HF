@@ -14,6 +14,9 @@ public interface retrofitInterface {
         @POST("api/v2/users")
         Call<RegisterRequest>Register(@Body() RegisterRequest obj);
 
+        @GET("api/v2/users")
+        Call<List<UserRequest>>Users(@Header("Authorization") String accessToken);
+
         @POST("api/v2/users/login")
         Call<Token>Login(@Body() LoginRequest obj);
 
