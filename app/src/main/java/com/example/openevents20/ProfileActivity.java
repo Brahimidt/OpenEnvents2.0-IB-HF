@@ -36,34 +36,50 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+
+
         TextView email = findViewById(R.id.thaEmail);
         TextView firstName = findViewById(R.id.thaFirstName);
         TextView lastName = findViewById(R.id.thaLastName);
-        ImageView image = findViewById(R.id.thaImage);
+        ImageView image = findViewById(R.id.imageView);
 
 
         sharedPreferences = getSharedPreferences("token",MODE_PRIVATE);
         String StoredValue = sharedPreferences.getString("token", "");
         String StoredValue2 = sharedPreferences.getString("email", "");
 
-        service.Profile(("Bearer "+StoredValue), ("search?s=")+StoredValue2).enqueue(new Callback<List<ProfileRequest>>() {
-            @Override
-            public void onResponse(Call<List<ProfileRequest>> call, Response<List<ProfileRequest>> response) {
+        if(getIntent().hasExtra("email")){
 
-                if (response.isSuccessful()){
-                    List<ProfileRequest> myList = response.body();
-                    email.setText(myList.get(0).email);
-                    firstName.setText(myList.get(0).name);
-                    lastName.setText(myList.get(0).last_name);
-                    Picasso.get().load(myList.get(0).image).into(image);
+            email.setText(getIntent().getStringExtra("email"));
+            firstName.setText(getIntent().getStringExtra("name"));
+            lastName.setText(getIntent().getStringExtra("last_name"));
+           Picasso.get().load(getIntent().getStringExtra("image")).into(image);
+
+        }else{
+
+            service.Profile(("Bearer "+StoredValue), ("search?s=")+StoredValue2).enqueue(new Callback<List<ProfileRequest>>() {
+                @Override
+                public void onResponse(Call<List<ProfileRequest>> call, Response<List<ProfileRequest>> response) {
+
+                    if (response.isSuccessful()){
+
+                        /** List<ProfileRequest> myList = response.body();
+                         email.setText(myList.get(0).email);
+                         firstName.setText(myList.get(0).name);
+                         lastName.setText(myList.get(0).last_name);
+                         Picasso.get().load(myList.get(0).image).into(image);**/
+
+                    }
+                    else{
+                        Toast.makeText(ProfileActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else{
-                    Toast.makeText(ProfileActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                @Override
+                public void onFailure(Call<List<ProfileRequest>> call, Throwable t) {
                 }
-            }
-            @Override
-            public void onFailure(Call<List<ProfileRequest>> call, Throwable t) {
-            }
-        });
+            });
+        }
+
+
     }
 }
