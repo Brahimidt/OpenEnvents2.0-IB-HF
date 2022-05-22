@@ -83,6 +83,7 @@ public class Login extends AppCompatActivity {
                                 myEdit.clear();
                                 myEdit.commit();
                                 myEdit.putString("token", response.body().accessToken);
+                                myEdit.putString("email",email.getText().toString() );
                                 myEdit.commit();
                                 Intent intent = new Intent(Login.this, MainActivity.class);// New activity
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
