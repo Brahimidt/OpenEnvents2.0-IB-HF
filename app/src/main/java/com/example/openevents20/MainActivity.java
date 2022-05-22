@@ -46,11 +46,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     SharedPreferences sharedPreferences;
 
-    List<Integer> ids= new ArrayList<Integer>();;
-    List<String> names= new ArrayList<String>();;
-    List<String> locations= new ArrayList<String>();;
-    List<Date> dates= new ArrayList<Date>();;
-    List<String> imagesUrl= new ArrayList<String>();;
+    List<Integer> ids= new ArrayList<Integer>();
+    List<String> names= new ArrayList<String>();
+    List<String> locations= new ArrayList<String>();
+    List<Date> dates= new ArrayList<Date>();
+    List<Date> startDates= new ArrayList<Date>();
+    List<Date> endDates= new ArrayList<Date>();
+    List<String> imagesUrl= new ArrayList<String>();
+    List<String> descriptions= new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,22 +94,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         locations.add(obj.location);
                         dates.add(obj.date);
                         imagesUrl.add(obj.image);
+                        startDates.add(obj.eventStart_date);
+                        endDates.add(obj.eventEnd_date);
+                        descriptions.add(obj.description);
                     }
 
                     Integer[] losid = new Integer[ids.size()];
                     String[] losnames = new String[ids.size()];
                     String[] losLocations = new String[ids.size()];
                     Date[] losdates = new Date[ids.size()];
+                    Date[] losStartingdates = new Date[ids.size()];
+                    Date[] losEndsdates = new Date[ids.size()];
                     String[] losimagesUrl = new String[ids.size()];
+                    String[] losDescriptions = new String[ids.size()];
 
                     losid = ids.toArray(losid);
                     losnames = names.toArray(losnames);
                     losLocations = locations.toArray(losLocations);
                     losdates = dates.toArray(losdates);
                     losimagesUrl = imagesUrl.toArray(losimagesUrl);
+                    losDescriptions= descriptions.toArray(losDescriptions);
+                    losEndsdates = endDates.toArray(losEndsdates);
+                    losStartingdates = startDates.toArray(losStartingdates);
 
 
-                    EventsAdapter myAdapter = new EventsAdapter(ThisContext,losid,losnames,losLocations,losdates,losimagesUrl);
+                    EventsAdapter myAdapter = new EventsAdapter(ThisContext,losid,losnames,losLocations,losdates,losimagesUrl,losEndsdates,losStartingdates,losDescriptions);
                     recyclerView.setAdapter(myAdapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(ThisContext));
                 }
